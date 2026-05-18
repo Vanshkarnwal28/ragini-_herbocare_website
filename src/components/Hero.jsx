@@ -34,10 +34,13 @@ const Hero = ({ onOpenVideo }) => {
       ></div>
 
       <div className="container hero-content">
-        <h1 ref={textRef} className="hero-title">
-          Awesome <br/>
-          <span className="text-accent">Designs.</span>
-        </h1>
+        <div ref={textRef} className="hero-text-container">
+          <img src="/logo.png" alt="Ragini Herbocare Logo" className="hero-logo" />
+          <h1 className="hero-title">
+            Awesome <br/>
+            <span className="text-accent">Designs.</span>
+          </h1>
+        </div>
         
         <div ref={btnRef} className="hero-play-wrapper">
           <button className="play-btn" onClick={onOpenVideo} aria-label="Play Video">

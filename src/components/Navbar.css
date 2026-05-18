@@ -15,7 +15,7 @@
 .navbar.scrolled {
   padding: 20px 50px;
   background-color: var(--bg-primary);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 30px rgba(17, 89, 51, 0.1);
   border-bottom: 1px solid var(--border-light);
 }
 
@@ -106,7 +106,7 @@
   flex-direction: column;
   gap: 40px;
   transition: right var(--transition-smooth);
-  box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+  box-shadow: -10px 0 30px rgba(17, 89, 51, 0.15);
 }
 
 .mobile-menu.open {

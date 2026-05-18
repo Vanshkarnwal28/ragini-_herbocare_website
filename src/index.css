@@ -1,16 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;700;900&display=swap');
 
 :root {
-  /* Color Palette */
-  --bg-primary: #121212;
-  --bg-secondary: #1a1a1a;
-  --bg-tertiary: #242424;
-  --text-primary: #ffffff;
-  --text-secondary: #a0a0a0;
-  --accent: #e6c875; /* Litho-inspired gold/yellow */
-  --accent-hover: #f5db94;
-  --glass-bg: rgba(18, 18, 18, 0.7);
-  --border-light: rgba(255, 255, 255, 0.1);
+  /* Color Palette - Bottle Green & White Theme */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fdfa;
+  --bg-tertiary: #edf7f2;
+  --text-primary: #0b2b18;
+  --text-secondary: #365945;
+  --accent: #115933; /* Bottle green */
+  --accent-hover: #0a381f; /* Darker bottle green */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --border-light: rgba(17, 89, 51, 0.1);
 
   /* Typography */
   --font-heading: 'Outfit', sans-serif;
