@@ -1,0 +1,136 @@
+.checkout-page {
+  padding: 120px 0 80px;
+  min-height: 100vh;
+  background-color: var(--bg-secondary);
+}
+
+.page-title {
+  font-size: 36px;
+  color: var(--text-primary);
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.checkout-container {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 40px;
+}
+
+.checkout-form-section,
+.order-summary-section {
+  padding: 35px;
+  border-radius: 12px;
+}
+
+.checkout-form-section h3,
+.order-summary-section h3 {
+  font-size: 24px;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.guest-note {
+  font-size: 14px;
+  color: var(--accent);
+  margin-bottom: 30px;
+  font-weight: 500;
+  background-color: rgba(46, 110, 60, 0.1);
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 15px;
+}
+
+.pay-btn {
+  margin-top: 20px;
+  padding: 18px;
+  font-size: 16px;
+  background-color: #3399cc; /* Razorpay brand color hint */
+}
+
+.pay-btn:hover {
+  background-color: #2b82ad;
+}
+
+.checkout-items {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 30px;
+  margin-top: 20px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.checkout-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+  border-bottom: 1px dashed var(--border-light);
+}
+
+.checkout-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.checkout-item-name {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.checkout-item-qty {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.checkout-item-price {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.checkout-totals {
+  background-color: rgba(46, 110, 60, 0.05);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.grand-total {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid var(--border-light);
+}
+
+@media (max-width: 900px) {
+  .checkout-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .order-summary-section {
+    order: -1; /* Show summary first on mobile */
+  }
+}
+
+@media (max-width: 600px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}

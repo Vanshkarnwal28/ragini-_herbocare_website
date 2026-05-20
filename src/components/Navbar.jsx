@@ -1,11 +1,16 @@
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
-import { Facebook, Instagram, Twitter, Linkedin } from './SocialIcons';
+import { Link } from 'react-router-dom';
+import { Menu, X, ShoppingCart } from 'lucide-react';
+import { Facebook, Instagram } from './SocialIcons';
+import { useCart } from '../context/CartContext';
 import './Navbar.css';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { cart } = useCart();
+
+  const cartItemCount = cart.reduce((total, item) => total + item.quantity, 0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,22 +26,20 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Services', href: '#services' },
-    { name: 'Portfolio', href: '#portfolio' },
-    { name: 'Testimonials', href: '#testimonials' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', href: '/#home' },
+    { name: 'About', href: '/#about' },
+    { name: 'Products', href: '/#products' },
+    { name: 'CEO Message', href: '/#ceo' },
   ];
 
   return (
     <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
       <div className="navbar-container">
         {/* Logo */}
-        <a href="#" className="navbar-logo">
-          <span className="logo-icon"></span>
-          LITHO
-        </a>
+        <Link to="/" className="navbar-logo">
+          <span className="logo-icon herb-icon">🌿</span>
+          Ragini Herbocare
+        </Link>
 
         {/* Desktop Navigation */}
         <div className="navbar-links">
@@ -47,12 +50,14 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Social Icons (Desktop) */}
+        {/* Icons (Desktop) */}
         <div className="navbar-social">
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><Facebook size={18} /></a>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><Instagram size={18} /></a>
-          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><Twitter size={18} /></a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"><Linkedin size={18} /></a>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-icon"><Instagram size={18} /></a>
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="social-icon"><Facebook size={18} /></a>
+          <Link to="/cart" className="cart-icon-wrapper">
+            <ShoppingCart size={22} />
+            {cartItemCount > 0 && <span className="cart-badge">{cartItemCount}</span>}
+          </Link>
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -77,12 +82,13 @@ const Navbar = () => {
               {link.name}
             </a>
           ))}
+          <Link to="/cart" className="mobile-link" onClick={() => setIsMobileMenuOpen(false)}>
+            Cart ({cartItemCount})
+          </Link>
         </div>
         <div className="mobile-social">
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><Facebook size={20} /></a>
           <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><Instagram size={20} /></a>
-          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><Twitter size={20} /></a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"><Linkedin size={20} /></a>
+          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><Facebook size={20} /></a>
         </div>
       </div>
     </nav>

@@ -1,100 +1,153 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { Mail, Phone, MapPin } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Mail, Phone, Laptop } from 'lucide-react';
 import './Contact.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Contact = () => {
-  const sectionRef = useRef(null);
+  const containerRef = useRef(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
 
   useEffect(() => {
-    gsap.fromTo(sectionRef.current,
-      { opacity: 0, y: 50 },
+    const elements = containerRef.current.querySelectorAll('.contact-animate');
+    
+    gsap.fromTo(elements, 
+      { y: 50, opacity: 0 },
       {
-        opacity: 1,
         y: 0,
-        duration: 1,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: 'power3.out',
         scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%',
+          trigger: containerRef.current,
+          start: 'top 80%',
         }
       }
     );
   }, []);
 
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Frontend only submission for now
     alert('Thank you for your message! We will get back to you soon.');
+    setFormData({ name: '', email: '', phone: '', message: '' });
   };
 
   return (
-    <section id="contact" className="section contact-section" ref={sectionRef}>
-      <div className="container">
-        
-        {/* Contact Info Blocks */}
-        <div className="contact-info-blocks">
-          <div className="info-block">
-            <div className="info-icon text-accent">
-              <Mail size={32} />
-            </div>
-            <h3 className="info-title">How can we help you?</h3>
-            <a href="mailto:hello@example.com" className="info-link">Send us an email</a>
-          </div>
-          
-          <div className="info-block">
-            <div className="info-icon text-accent">
-              <Phone size={32} />
-            </div>
-            <h3 className="info-title">Feel free to get in touch?</h3>
-            <a href="tel:+1234567890" className="info-link">Give us a call today</a>
-          </div>
-          
-          <div className="info-block">
-            <div className="info-icon text-accent">
-              <Laptop size={32} />
-            </div>
-            <h3 className="info-title">Ready to request a quote?</h3>
-            <a href="#services" className="info-link">Describe your project</a>
-          </div>
+    <section id="contact" className="section contact-section">
+      <div className="container" ref={containerRef}>
+        <div className="section-header contact-animate">
+          <h2>Get in Touch</h2>
+          <p>We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
         </div>
 
-        {/* Contact Form Header */}
-        <div className="contact-header text-center">
-          <span className="subtitle text-secondary">Fill out the form and we'll be in touch soon!</span>
-          <h2 className="title">How we can help you?</h2>
-        </div>
-
-        {/* Contact Form */}
-        <div className="contact-form-wrapper">
-          <form className="contact-form" onSubmit={handleSubmit}>
-            <div className="form-group">
-              <input type="text" placeholder="Your name*" required className="form-input" />
-            </div>
-            <div className="form-group">
-              <input type="email" placeholder="Your email address*" required className="form-input" />
-            </div>
-            <div className="form-group">
-              <input type="tel" placeholder="Your mobile" className="form-input" />
-            </div>
-            <div className="form-group form-group-full">
-              <textarea placeholder="Your message" rows="4" className="form-input textarea"></textarea>
-            </div>
+        <div className="contact-content">
+          <div className="contact-info contact-animate glass">
+            <h3>Contact Information</h3>
+            <p className="info-desc">Reach out to us for any queries regarding our products or bulk orders.</p>
             
-            <div className="form-footer form-group-full">
-              <div className="checkbox-group">
-                <input type="checkbox" id="terms" required />
-                <label htmlFor="terms">
-                  I accept the terms & conditions and I understand that my data will be hold securely in accordance with the <a href="#" className="privacy-link">privacy policy</a>.
-                </label>
+            <div className="info-items">
+              <div className="info-item">
+                <div className="info-icon"><Phone size={20} /></div>
+                <div>
+                  <h4>Phone</h4>
+                  <p>+91 98765 43210</p>
+                </div>
               </div>
-              <button type="submit" className="btn submit-btn">Send Message</button>
+              
+              <div className="info-item">
+                <div className="info-icon"><Mail size={20} /></div>
+                <div>
+                  <h4>Email</h4>
+                  <p>info@raginiherbocare.com</p>
+                </div>
+              </div>
+              
+              <div className="info-item">
+                <div className="info-icon"><MapPin size={20} /></div>
+                <div>
+                  <h4>Address</h4>
+                  <p>123 Herbal Avenue, Green City, State 456001</p>
+                </div>
+              </div>
             </div>
-          </form>
-        </div>
+          </div>
 
+          <div className="contact-form-container contact-animate">
+            <form className="contact-form" onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="name">Name</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  name="name" 
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Your Full Name" 
+                  required 
+                />
+              </div>
+              
+              <div className="form-row">
+                <div className="form-group">
+                  <label htmlFor="email">Email</label>
+                  <input 
+                    type="email" 
+                    id="email" 
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="Your Email Address" 
+                    required 
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="phone">Phone</label>
+                  <input 
+                    type="tel" 
+                    id="phone" 
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="Your Phone Number" 
+                    required 
+                  />
+                </div>
+              </div>
+              
+              <div className="form-group">
+                <label htmlFor="message">Message</label>
+                <textarea 
+                  id="message" 
+                  name="message" 
+                  rows="5" 
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="How can we help you?" 
+                  required
+                ></textarea>
+              </div>
+              
+              <button type="submit" className="btn btn-primary submit-btn">
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
       </div>
     </section>
   );

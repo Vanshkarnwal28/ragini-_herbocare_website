@@ -1,22 +1,39 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Lenis from 'lenis';
+
+import { CartProvider } from './context/CartContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import Services from './components/Services';
-import Portfolio from './components/Portfolio';
-import Testimonials from './components/Testimonials';
+import About from './components/About';
+import CEOMessage from './components/CEOMessage';
+import Products from './components/Products';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import VideoModal from './components/VideoModal';
+import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
+import FloatingActions from './components/FloatingActions';
+
+import './App.css';
+
+function Home() {
+  return (
+    <>
+      <Hero />
+      <About />
+      <CEOMessage />
+      <Products />
+      <Contact />
+    </>
+  );
+}
 
 function App() {
-  const [isVideoOpen, setIsVideoOpen] = useState(false);
-
   useEffect(() => {
     // Initialize Lenis smooth scrolling
     const lenis = new Lenis({
       duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // https://www.desmos.com/calculator/brs54l4xou
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       direction: 'vertical',
       gestureDirection: 'vertical',
       smooth: true,
@@ -39,25 +56,24 @@ function App() {
   }, []);
 
   return (
-    <div className="app-wrapper">
-      <Navbar />
-      
-      <main>
-        <Hero onOpenVideo={() => setIsVideoOpen(true)} />
-        <Services />
-        <Portfolio />
-        <Testimonials />
-        <Contact />
-      </main>
+    <CartProvider>
+      <Router>
+        <div className="app-wrapper">
+          <Navbar />
+          
+          <main>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout" element={<Checkout />} />
+            </Routes>
+          </main>
 
-      <Footer />
-
-      <VideoModal 
-        isOpen={isVideoOpen} 
-        onClose={() => setIsVideoOpen(false)} 
-        videoId="67PstLDYXGI" 
-      />
-    </div>
+          <Footer />
+          <FloatingActions />
+        </div>
+      </Router>
+    </CartProvider>
   );
 }
 

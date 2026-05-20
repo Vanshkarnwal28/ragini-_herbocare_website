@@ -1,16 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;700;900&display=swap');
 
 :root {
-  /* Color Palette - Bottle Green & White Theme */
+  /* Color Palette - Ragini Herbocare Theme */
   --bg-primary: #ffffff;
-  --bg-secondary: #f8fdfa;
-  --bg-tertiary: #edf7f2;
-  --text-primary: #0b2b18;
-  --text-secondary: #365945;
-  --accent: #115933; /* Bottle green */
-  --accent-hover: #0a381f; /* Darker bottle green */
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --border-light: rgba(17, 89, 51, 0.1);
+  --bg-secondary: #f4f9f4; /* Light green earthy tint */
+  --bg-tertiary: #e7f0e7;
+  --text-primary: #1c3622;
+  --text-secondary: #4a634e;
+  --accent: #2e6e3c; /* Natural dark green */
+  --accent-hover: #1f4a28; /* Darker green */
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --border-light: rgba(46, 110, 60, 0.15);
+  --shadow-soft: 0 4px 20px rgba(46, 110, 60, 0.08);
 
   /* Typography */
   --font-heading: 'Outfit', sans-serif;
@@ -177,4 +178,31 @@ html.lenis, html.lenis body {
   .section {
     padding: var(--section-padding-mobile);
   }
+}
+
+/* Glassmorphism & Extra Utilities */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: var(--shadow-soft);
+}
+
+.elevation-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.elevation-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(46, 110, 60, 0.12);
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
