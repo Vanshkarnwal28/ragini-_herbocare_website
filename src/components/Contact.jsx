@@ -1,38 +1,16 @@
-import { useEffect, useRef, useState } from 'react';
-import { Mail, Phone, MapPin } from 'lucide-react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useState } from 'react';
+import { Mail, Phone, MapPin, MessageCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { WhatsApp } from './SocialIcons';
 import './Contact.css';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const Contact = () => {
-  const containerRef = useRef(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     message: ''
   });
-
-  useEffect(() => {
-    const elements = containerRef.current.querySelectorAll('.contact-animate');
-    
-    gsap.fromTo(elements, 
-      { y: 50, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top 80%',
-        }
-      }
-    );
-  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -47,47 +25,78 @@ const Contact = () => {
     setFormData({ name: '', email: '', phone: '', message: '' });
   };
 
+  const fadeIn = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+  };
+
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
+  };
+
   return (
     <section id="contact" className="section contact-section">
-      <div className="container" ref={containerRef}>
-        <div className="section-header contact-animate">
+      <div className="container">
+        <motion.div 
+          className="section-header"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeIn}
+        >
           <h2>Get in Touch</h2>
           <p>We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
-        </div>
+        </motion.div>
 
         <div className="contact-content">
-          <div className="contact-info contact-animate glass">
-            <h3>Contact Information</h3>
-            <p className="info-desc">Reach out to us for any queries regarding our products or bulk orders.</p>
+          <motion.div 
+            className="contact-info glass"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={staggerContainer}
+          >
+            <motion.h3 variants={fadeIn}>Contact Information</motion.h3>
+            <motion.p className="info-desc" variants={fadeIn}>Reach out to us for any queries regarding our products or bulk orders.</motion.p>
             
             <div className="info-items">
-              <div className="info-item">
+              <motion.div className="info-item" variants={fadeIn}>
                 <div className="info-icon"><Phone size={20} /></div>
                 <div>
                   <h4>Phone</h4>
-                  <p>+91 98765 43210</p>
+                  <p>9830023313</p>
+                  <a href="tel:+919830023313" className="action-link">Call Now</a>
                 </div>
-              </div>
+              </motion.div>
               
-              <div className="info-item">
+              <motion.div className="info-item" variants={fadeIn}>
+                <div className="info-icon"><WhatsApp size={20} /></div>
+                <div>
+                  <h4>WhatsApp</h4>
+                  <p>9830023313</p>
+                  <a href="https://wa.me/919830023313" target="_blank" rel="noopener noreferrer" className="action-link">Chat on WhatsApp</a>
+                </div>
+              </motion.div>
+              
+              <motion.div className="info-item" variants={fadeIn}>
                 <div className="info-icon"><Mail size={20} /></div>
                 <div>
                   <h4>Email</h4>
                   <p>info@raginiherbocare.com</p>
+                  <a href="mailto:info@raginiherbocare.com" className="action-link">Send Email</a>
                 </div>
-              </div>
-              
-              <div className="info-item">
-                <div className="info-icon"><MapPin size={20} /></div>
-                <div>
-                  <h4>Address</h4>
-                  <p>123 Herbal Avenue, Green City, State 456001</p>
-                </div>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="contact-form-container contact-animate">
+          <motion.div 
+            className="contact-form-container"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={fadeIn}
+          >
             <form className="contact-form" onSubmit={handleSubmit}>
               <div className="form-group">
                 <label htmlFor="name">Name</label>
@@ -146,7 +155,7 @@ const Contact = () => {
                 Send Message
               </button>
             </form>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

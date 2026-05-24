@@ -16,7 +16,22 @@
   color: var(--text-secondary);
   max-width: 600px;
   margin: 0 auto;
-  font-size: 16px;
+  font-size: 14px;
+}
+
+.action-link {
+  display: inline-block;
+  margin-top: 5px;
+  font-size: 13px;
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color var(--transition-smooth);
+}
+
+.action-link:hover {
+  text-decoration: underline;
+  color: #1b5e20;
 }
 
 .contact-content {

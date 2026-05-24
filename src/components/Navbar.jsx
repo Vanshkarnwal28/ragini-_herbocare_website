@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, ShoppingCart } from 'lucide-react';
-import { Facebook, Instagram } from './SocialIcons';
+import { Facebook, Instagram, WhatsApp } from './SocialIcons';
 import { useCart } from '../context/CartContext';
 import './Navbar.css';
 
@@ -29,7 +29,6 @@ const Navbar = () => {
     { name: 'Home', href: '/#home' },
     { name: 'About', href: '/#about' },
     { name: 'Products', href: '/#products' },
-    { name: 'CEO Message', href: '/#ceo' },
   ];
 
   return (
@@ -37,8 +36,7 @@ const Navbar = () => {
       <div className="navbar-container">
         {/* Logo */}
         <Link to="/" className="navbar-logo">
-          <span className="logo-icon herb-icon">🌿</span>
-          Ragini Herbocare
+          <img src="/logo.png" alt="Ragini Herbocare" className="nav-logo-img" />
         </Link>
 
         {/* Desktop Navigation */}
@@ -52,8 +50,9 @@ const Navbar = () => {
 
         {/* Icons (Desktop) */}
         <div className="navbar-social">
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-icon"><Instagram size={18} /></a>
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="social-icon"><Facebook size={18} /></a>
+          <a href="#" className="social-icon"><Instagram size={18} /></a>
+          <a href="#" className="social-icon"><Facebook size={18} /></a>
+          <a href="https://wa.me/919830023313" target="_blank" rel="noopener noreferrer" className="social-icon whatsapp-icon"><WhatsApp size={18} /></a>
           <Link to="/cart" className="cart-icon-wrapper">
             <ShoppingCart size={22} />
             {cartItemCount > 0 && <span className="cart-badge">{cartItemCount}</span>}
@@ -87,8 +86,9 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="mobile-social">
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><Instagram size={20} /></a>
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><Facebook size={20} /></a>
+          <a href="#"><Instagram size={20} /></a>
+          <a href="#"><Facebook size={20} /></a>
+          <a href="https://wa.me/919830023313" target="_blank" rel="noopener noreferrer" className="whatsapp-icon"><WhatsApp size={20} /></a>
         </div>
       </div>
     </nav>

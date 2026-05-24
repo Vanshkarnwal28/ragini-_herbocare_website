@@ -9,8 +9,7 @@ const Footer = () => {
         <div className="footer-content">
           <div className="footer-brand">
             <Link to="/" className="footer-logo">
-              <span className="logo-icon herb-icon">🌿</span>
-              Ragini Herbocare
+              <img src="/logo.png" alt="Ragini Herbocare" className="footer-logo-img" />
             </Link>
             <p className="footer-desc">
               Natural Wellness for Everyday Life. We provide 100% organic and pure herbal healthcare products.
@@ -37,7 +36,7 @@ const Footer = () => {
         </div>
         
         <div className="footer-bottom">
-          <p>©️2026 Ragini Herbocare. Crafted by <a href="https://techvisiondigital.in/" target="_blank" rel="noopener noreferrer" className="techvision-link">TechVision Digital</a></p>
+          <p>© 2026 Ragini Herbocare. All Rights Reserved.</p>
         </div>
       </div>
     </footer>

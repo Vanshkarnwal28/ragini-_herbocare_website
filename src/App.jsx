@@ -6,7 +6,6 @@ import { CartProvider } from './context/CartContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
-import CEOMessage from './components/CEOMessage';
 import Products from './components/Products';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
@@ -21,7 +20,6 @@ function Home() {
     <>
       <Hero />
       <About />
-      <CEOMessage />
       <Products />
       <Contact />
     </>

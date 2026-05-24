@@ -1,45 +1,93 @@
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import { motion } from 'framer-motion';
+import { ShieldCheck, Leaf, FlaskConical, Medal } from 'lucide-react';
+import './About.css';
 
 const About = () => {
-  const containerRef = useRef(null);
+  const fadeIn = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+  };
 
-  useEffect(() => {
-    const textElements = containerRef.current.querySelectorAll('.animate-text');
-    
-    gsap.fromTo(textElements, 
-      { y: 50, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        stagger: 0.2,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top 80%',
-        }
+  const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
       }
-    );
-  }, []);
+    }
+  };
 
   return (
-    <section id="about" className="section" style={{ backgroundColor: 'var(--bg-secondary)' }}>
-      <div className="container" ref={containerRef}>
-        <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
-          <h2 className="animate-text" style={{ fontSize: '36px', marginBottom: '24px', color: 'var(--text-primary)' }}>
-            About Ragini Herbocare
-          </h2>
-          <p className="animate-text" style={{ fontSize: '18px', color: 'var(--text-secondary)', marginBottom: '30px' }}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+    <section id="about" className="section about-section">
+      <div className="container">
+        <motion.div 
+          className="about-header"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeIn}
+        >
+          <h2>About Ragini Herbocare</h2>
+          <p className="about-subtitle">Empowering Wellness, Alleviating Pain: The Ragini Herbocare Story</p>
+        </motion.div>
+
+        <motion.div 
+          className="about-content"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeIn}
+        >
+          <p>
+            At Ragini Herbocare, we believe that true healing begins when modern science harmonizes with the timeless wisdom of Ayurveda. Founded by the visionary Mr. Saibal Maitra, our company is driven by a singular, deeply rooted mission: to provide safe, natural, and highly effective relief from chronic pain, restoring mobility and joy to everyday life.
           </p>
-          <p className="animate-text" style={{ fontSize: '18px', color: 'var(--text-secondary)' }}>
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+          <p>
+            Our journey began with a breakthrough invention—<strong>Toraz</strong>—a premium, herbal Ayurvedic pain relief oil. Formulated through years of meticulous research and a deep understanding of indigenous botanical extracts, Toraz represents a paradigm shift in pain management.
           </p>
-        </div>
+        </motion.div>
+
+        <motion.div 
+          className="about-quote-container"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeIn}
+        >
+          <blockquote className="founder-quote">
+            "True wellness is not merely the absence of pain, but the revival of your body's natural strength."
+          </blockquote>
+          <p className="founder-name">— Mr. Saibal Maitra, Founder</p>
+        </motion.div>
+
+        <motion.div 
+          className="about-features"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+        >
+          <motion.div className="feature-card glass" variants={fadeIn}>
+            <div className="feature-icon"><Leaf size={32} /></div>
+            <h3>100% Herbal & Ayurvedic</h3>
+            <p>Rooted in ancient wisdom, crafted purely from nature's healing herbs.</p>
+          </motion.div>
+          <motion.div className="feature-card glass" variants={fadeIn}>
+            <div className="feature-icon"><FlaskConical size={32} /></div>
+            <h3>Scientific Innovation</h3>
+            <p>A proprietary formula developed through years of meticulous research.</p>
+          </motion.div>
+          <motion.div className="feature-card glass" variants={fadeIn}>
+            <div className="feature-icon"><ShieldCheck size={32} /></div>
+            <h3>Chemical-Free Promise</h3>
+            <p>Safe, natural pain relief without any harmful additives or chemicals.</p>
+          </motion.div>
+          <motion.div className="feature-card glass" variants={fadeIn}>
+            <div className="feature-icon"><Medal size={32} /></div>
+            <h3>Quality Assured</h3>
+            <p>Manufactured under strict quality controls for deep, lasting relief.</p>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

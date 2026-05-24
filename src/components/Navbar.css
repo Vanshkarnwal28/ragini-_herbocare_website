@@ -38,9 +38,14 @@
   color: var(--text-primary);
 }
 
-.herb-icon {
-  font-size: 28px;
-  line-height: 1;
+.nav-logo-img {
+  height: 45px;
+  width: auto;
+  object-fit: contain;
+}
+
+.whatsapp-icon:hover {
+  color: #25D366 !important;
 }
 
 .cart-icon-wrapper {
