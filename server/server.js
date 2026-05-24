@@ -4,11 +4,20 @@ import dotenv from 'dotenv';
 import Razorpay from 'razorpay';
 import crypto from 'crypto';
 
+import path from 'path';
+import { fileURLToPath } from 'url';
+
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// Serve static files from the React dist directory in production
+app.use(express.static(path.join(__dirname, '../dist')));
 
 // Initialize Razorpay
 const razorpay = new Razorpay({
@@ -57,6 +66,11 @@ app.post('/api/verify-payment', (req, res) => {
   } catch (error) {
     res.status(500).json({ message: 'Internal Server Error' });
   }
+});
+
+// Catch-all route to serve React's index.html for any non-API route
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
 const PORT = process.env.PORT || 5001;
