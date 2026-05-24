@@ -29,6 +29,7 @@ const Navbar = () => {
     { name: 'Home', href: '/#home' },
     { name: 'About', href: '/#about' },
     { name: 'Products', href: '/#products' },
+    { name: 'Contact', href: '/#contact' },
   ];
 
   return (
@@ -37,6 +38,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link to="/" className="navbar-logo">
           <img src="/logo.png" alt="Ragini Herbocare" className="nav-logo-img" />
+          <span className="nav-logo-text">Ragini Herbocare</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -70,6 +72,15 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
+        {/* Close Button Inside Mobile Menu */}
+        <button 
+          className="mobile-menu-close-btn"
+          onClick={() => setIsMobileMenuOpen(false)}
+          aria-label="Close menu"
+        >
+          <X size={24} />
+        </button>
+
         <div className="mobile-links">
           {navLinks.map((link) => (
             <a 
