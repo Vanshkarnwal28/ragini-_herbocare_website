@@ -27,43 +27,79 @@ const Checkout = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handlePayment = (e) => {
+  // Load Razorpay Script dynamically
+  useEffect(() => {
+    const loadScript = () => {
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.async = true;
+      document.body.appendChild(script);
+    };
+    loadScript();
+  }, []);
+
+  const handlePayment = async (e) => {
     e.preventDefault();
     
-    // Razorpay dummy integration
-    const options = {
-      key: "rzp_test_dummy_key", // Dummy key as requested
-      amount: getCartTotal() * 100, // Amount in paise
-      currency: "INR",
-      name: "Ragini Herbocare",
-      description: "Purchase of Herbal Products",
-      image: "/logo.png", // Use real logo path
-      handler: function (response) {
-        alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
-        clearCart();
-        navigate('/');
-      },
-      prefill: {
-        name: formData.name,
-        contact: formData.mobile,
-      },
-      theme: {
-        color: "#2e6e3c"
+    try {
+      // 1. Create order on our backend
+      const res = await fetch('/api/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: getCartTotal(),
+          currency: 'INR',
+        }),
+      });
+      
+      const order = await res.json();
+      
+      if (!order || !order.id) {
+        alert('Server Error. Unable to generate order ID.');
+        return;
       }
-    };
-    
-    // Simulate Razorpay opening (In a real app, you load Razorpay script first)
-    if (window.Razorpay) {
-        const rzp = new window.Razorpay(options);
-        rzp.open();
-    } else {
-        // Fallback dummy simulation if script isn't loaded
-        const confirmPayment = window.confirm(`Proceed to pay ₹${getCartTotal()} via Dummy Razorpay?`);
-        if (confirmPayment) {
-            alert("Payment Successful! Dummy ID: pay_dummy12345");
+
+      // 2. Open Razorpay Checkout modal
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_dummy_key', // This is just public key
+        amount: order.amount,
+        currency: order.currency,
+        name: 'Ragini Herbocare',
+        description: 'Purchase of Herbal Products',
+        image: '/logo.png',
+        order_id: order.id,
+        handler: async function (response) {
+          // 3. Verify Payment Signature on Backend
+          const verifyRes = await fetch('/api/verify-payment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(response),
+          });
+
+          const verifyData = await verifyRes.json();
+          
+          if (verifyRes.ok) {
+            alert('Payment Successful! Payment ID: ' + response.razorpay_payment_id);
             clearCart();
             navigate('/');
-        }
+          } else {
+            alert('Payment Verification Failed!');
+          }
+        },
+        prefill: {
+          name: formData.name,
+          contact: formData.mobile,
+        },
+        theme: {
+          color: '#2e6e3c',
+        },
+      };
+
+      const paymentObject = new window.Razorpay(options);
+      paymentObject.open();
+    } catch (error) {
+      console.error(error);
+      alert('Something went wrong!');
     }
   };
 
