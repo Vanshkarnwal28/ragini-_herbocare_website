@@ -114,8 +114,9 @@
 
 @media (max-width: 768px) {
   .hero-slider-container {
-    height: 40vh;
-    min-height: 250px;
+    height: auto;
+    aspect-ratio: 1366/745;
+    min-height: auto;
   }
   .swiper-button-next, .swiper-button-prev {
     display: none !important;
